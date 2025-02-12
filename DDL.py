@@ -1,5 +1,5 @@
 import mysql.connector
-from config import DDL_CONFIG
+from config import DB_CONFIG , DDL_CONFIG
 from mysql.connector import Error
 
 def create_database():
@@ -10,9 +10,10 @@ def create_database():
         if connection.is_connected():
             cursor = connection.cursor()
             
+            database_name = DB_CONFIG['database']
             # Create database if it doesn't exist
-            cursor.execute("CREATE DATABASE IF NOT EXISTS ReminderBot")
-            cursor.execute("USE ReminderBot")
+            cursor.execute(f"CREATE DATABASE IF NOT EXISTS {database_name}")
+            cursor.execute(f"USE {database_name}")
             
             # Create Users table
             cursor.execute("""
